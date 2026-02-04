@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yay! 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+            z-index: 10;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #d63384;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(214, 51, 132, 0.2);
+            animation: fadeIn 1s ease-in;
+        }
+
+        .content {
+            font-size: 1.3rem;
+            color: #d63384;
+            line-height: 1.8;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .image-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .image-container:hover {
+            transform: scale(1.05);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .placeholder-img {
+            background: linear-gradient(135deg, #ffb6d9 0%, #ffd6e8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d63384;
+            font-size: 1.2rem;
+            height: 300px;
+        }
+
+        .surprise-btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background-color: #dc3545;
+            color: white;
+            text-decoration: none;
+            margin-top: 2rem;
+            animation: fadeIn 2.5s ease-in;
+        }
+
+        .surprise-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        }
+
+        .surprise-btn:active {
+            transform: scale(0.98);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .content {
+                font-size: 1.1rem;
+            }
+
+            .image-gallery {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin: 1.5rem 0;
+            }
+
+            .image-container img,
+            .placeholder-img {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .content {
+                font-size: 1rem;
+            }
+
+            .image-container img,
+            .placeholder-img {
+                height: 200px;
+            }
+
+            .image-gallery {
+                gap: 1rem;
+            }
+            
+        }
+
+        /* Add your custom content styling here */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💕 HOORAY!! 💕</h1>
+        
+        <div class="content">
+            <!-- Edit this section with your message -->
+            <p>I get to add another year of memories with you! </p>
+            <p>Scroll and Click the Button</p>
+        </div>
+
+        <div class="image-gallery">
+                <!-- Replace src with your image paths -->
+                <div class="image-container">
+                    <div class="content">
+                <!-- Edit this section with your message -->
+                <p>Me</p>
+                </div>
+                <img src="wave_bear.gif" alt="Me">
+                <!-- Or use this placeholder if you haven't added images yet -->
+                <!-- <div class="placeholder-img">Image 1</div> -->
+            </div>
+
+            <div class="image-container">
+                <div class="image-container">
+                    <div class="content">
+                <!-- Edit this section with your message -->
+                <p>You</p>
+                </div>
+                <img src="shark.gif" alt="You">
+                <!-- <div class="placeholder-img">Image 2</div> -->
+            </div>
+
+            
+
+            <!-- Add more images as needed -->
+            <!-- 
+            <div class="image-container">
+                <img src="image4.jpg" alt="Your photo 4">
+            </div>
+            -->
+        </div>
+        <a href="surprise.html" class="surprise-btn">See a Special Surprise 💝</a>
+
+    </div>
+</body>
+</html>

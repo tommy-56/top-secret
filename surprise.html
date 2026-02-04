@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extra💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            z-index: 10;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #d63384;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(214, 51, 132, 0.2);
+            animation: fadeIn 1s ease-in;
+        }
+
+        .description {
+            font-size: 1.3rem;
+            color: #d63384;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        .input-container {
+            margin-bottom: 2rem;
+            animation: fadeIn 2s ease-in;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            max-width: 500px;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 2px solid #d63384;
+            border-radius: 25px;
+            outline: none;
+            font-family: 'Georgia', serif;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+
+        input[type="text"]:focus {
+            box-shadow: 0 0 15px rgba(214, 51, 132, 0.3);
+            border-color: #dc3545;
+        }
+
+        button {
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background-color: #dc3545;
+            color: white;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button:disabled {
+            background-color: #d3d3d3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .image-display {
+            margin-top: 2rem;
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+
+        .image-display.show {
+            opacity: 1;
+        }
+
+        .image-display img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(214, 51, 132, 0.4);
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        .error-message {
+            color: #dc3545;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .loading {
+            color: #d63384;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .description {
+                font-size: 1.1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            input[type="text"] {
+                font-size: 0.9rem;
+                padding: 0.8rem;
+            }
+
+            button {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .description {
+                font-size: 1rem;
+            }
+
+            button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💝 Cute Dog Suprise 💝</h1>
+
+        <button id="fetchBtn" onclick="fetchImage()">Show Image ❤️</button>
+
+        <div class="loading" id="loading">Loading your surprise... 💕</div>
+        <div class="error-message" id="errorMsg">Oops! Couldn't load that image. Please check the URL and try again.</div>
+
+        <div class="image-display" id="imageDisplay"></div>
+    </div>
+
+    <script>
+        const imageUrlInput = document.getElementById('imageUrl');
+        const fetchBtn = document.getElementById('fetchBtn');
+        const imageDisplay = document.getElementById('imageDisplay');
+        const errorMsg = document.getElementById('errorMsg');
+        const loading = document.getElementById('loading');
+
+        // Allow Enter key to fetch image
+        imageUrlInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                fetchImage();
+            }
+        });
+
+        async function fetchImage() {
+            const url = 'https://dog.ceo/api/breed/retriever/golden/images/random';
+
+            // Validate URL
+            if (!url) {
+                showError('Please enter an image URL!');
+                return;
+            }
+
+            // Basic URL validation
+            try {
+                new URL(url);
+            } catch (e) {
+                showError('Please enter a valid URL!');
+                return;
+            }
+
+            // Hide previous content
+            imageDisplay.classList.remove('show');
+            errorMsg.classList.remove('show');
+            loading.classList.add('show');
+            fetchBtn.disabled = true;
+
+            try {
+                // First, try to fetch as JSON (for API endpoints)
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const contentType = response.headers.get('content-type');
+                let imageUrl = url;
+
+                // Check if response is JSON
+                if (contentType && contentType.includes('application/json')) {
+                    const data = await response.json();
+                    
+                    // Try common JSON structures for image URLs
+                    if (data.message) {
+                        imageUrl = data.message; // Dog CEO API format
+                    } else if (data.url) {
+                        imageUrl = data.url;
+                    } else if (data.image) {
+                        imageUrl = data.image;
+                    } else if (data.data && data.data.url) {
+                        imageUrl = data.data.url;
+                    } else {
+                        throw new Error('Could not find image URL in JSON response');
+                    }
+                }
+
+                // Now load the image
+                displayImage(imageUrl);
+
+            } catch (error) {
+                // If fetch fails, try loading URL directly as an image
+                displayImage(url);
+            }
+        }
+
+        function displayImage(imageUrl) {
+            const img = new Image();
+            
+            img.onload = function() {
+                // Image loaded successfully
+                loading.classList.remove('show');
+                fetchBtn.disabled = false;
+                imageDisplay.innerHTML = '';
+                imageDisplay.appendChild(img);
+                setTimeout(() => {
+                    imageDisplay.classList.add('show');
+                }, 100);
+            };
+
+            img.onerror = function() {
+                // Image failed to load
+                loading.classList.remove('show');
+                fetchBtn.disabled = false;
+                showError('Couldn\'t load that image. Please check the URL and try again.');
+            };
+
+            // Set the image source to trigger loading
+            img.src = imageUrl;
+            img.alt = 'Your special image';
+        }
+
+        function showError(message) {
+            errorMsg.textContent = message;
+            errorMsg.classList.add('show');
+            imageDisplay.classList.remove('show');
+            
+            // Hide error after 5 seconds
+            setTimeout(() => {
+                errorMsg.classList.remove('show');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
